@@ -6,15 +6,19 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private Location location;
 	private double balance;
 	
 	public User() {}
 	
-	public User(int id, String name, String email, String password, double balance) {	
+
+	public User(int id, String name, String email, String password, Location location, double balance) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.location = location;
 		this.balance = balance;
 	}
 
@@ -50,6 +54,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
 	public double getBalance() {
 		return balance;
 	}
@@ -60,8 +72,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", balance=" 
-				+ balance + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", location="
+				+ location + ", balance=" + balance + "]";
 	}
 	
 }
