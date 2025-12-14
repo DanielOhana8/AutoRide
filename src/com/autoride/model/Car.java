@@ -5,11 +5,11 @@ public class Car {
 	private int id;
 	private String model;
 	private Location location;
-	private String status;
+	private boolean status;
 	
 	public Car() {}
 
-	public Car(int id, String model, Location location, String status) {
+	public Car(int id, String model, Location location, boolean status) {
 		this.id = id;
 		this.model = model;
 		this.location = location;
@@ -40,11 +40,11 @@ public class Car {
 		this.location = location;
 	}
 	
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
