@@ -53,9 +53,10 @@ public class RideService {
 		double totalCost = PRICE_PER_UNIT * ride.getStartLocation().distanceTo(endLocation);
 		
 		userService.updateBalance(userId, -totalCost);
-		rideDAO.endRide(ride.getId(), LocalDateTime.now(), endLocation, totalCost);
+		userService.updateUserLocation(userId, endLocation);
 		carService.setCarAvailability(car.getId(), true);
 		carService.setCarLocation(car.getId(), endLocation);
+		rideDAO.endRide(ride.getId(), LocalDateTime.now(), endLocation, totalCost);
 	}
 	
 	public Ride getUserActiveRide(int userId) {
