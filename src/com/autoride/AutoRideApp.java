@@ -17,6 +17,7 @@ public class AutoRideApp extends Application {
 		Parent layout = FXMLLoader.load(getClass().getResource("/com/autoride/ui/Login.fxml"));
 		Scene scene = new Scene(layout);
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("AutoRide - Login");
 		primaryStage.show();
 	}
 	

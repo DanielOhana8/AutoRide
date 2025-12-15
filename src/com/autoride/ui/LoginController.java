@@ -1,5 +1,6 @@
 package com.autoride.ui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,8 +10,13 @@ import com.autoride.service.UserService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,7 +65,19 @@ public class LoginController {
 
     @FXML
     void goToRegister(ActionEvent event) {
-    	
+    	try {
+            Parent registerRoot = FXMLLoader.load(getClass().getResource("/com/autoride/ui/Register.fxml"));
+            Scene registerScene = new Scene(registerRoot);
+            
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(registerScene);
+            window.setTitle("AutoRide - Register");
+            window.show();
+        } 
+    	catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Could not load register screen.");
+        }
     }
 
     @FXML
