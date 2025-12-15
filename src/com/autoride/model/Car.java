@@ -5,15 +5,15 @@ public class Car {
 	private int id;
 	private String model;
 	private Location location;
-	private boolean status;
+	private boolean available;
 	
 	public Car() {}
 
-	public Car(int id, String model, Location location, boolean status) {
+	public Car(int id, String model, Location location, boolean avalible) {
 		this.id = id;
 		this.model = model;
 		this.location = location;
-		this.status = status;
+		this.available = avalible;
 	}
 	
 	public int getId() {
@@ -40,17 +40,17 @@ public class Car {
 		this.location = location;
 	}
 	
-	public boolean getStatus() {
-		return status;
+	public boolean isAvailable() {
+		return available;
 	}
 	
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", model=" + model + ", location=" + location + ", status=" + status + "]";
+		return "Car [id=" + id + ", model=" + model + ", location=" + location + ", available=" + available + "]";
 	}
 	
 }

@@ -1,14 +1,26 @@
 package com.autoride.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.autoride.model.Car;
 import com.autoride.model.Location;
 import com.autoride.util.DatabaseConnection;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class CarDAO {
+	
+	private Car carResultSet(ResultSet rs) throws SQLException{
+		return new Car(
+            rs.getInt("id"),
+            rs.getString("model"),
+            new Location(rs.getInt("location_x"), rs.getInt("location_y")),
+            rs.getBoolean("available")
+        );
+	}
     
     public Car getById(int id) {
         String sql = "SELECT * FROM cars WHERE id = ?";
@@ -20,12 +32,7 @@ public class CarDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new Car(
-                    rs.getInt("id"),
-                    rs.getString("model"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getBoolean("status")
-                );
+                return carResultSet(rs);
             } 
         } 
         catch (SQLException e) {
@@ -37,14 +44,14 @@ public class CarDAO {
     }
     
     public void update(Car car) {
-        String sql = "UPDATE cars SET location_x = ?, location_y = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE cars SET location_x = ?, location_y = ?, available = ? WHERE id = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, car.getLocation().getX());
             pstmt.setInt(2, car.getLocation().getY());
-            pstmt.setBoolean(3, car.getStatus());
+            pstmt.setBoolean(3, car.isAvailable());
             pstmt.setInt(4, car.getId());
             
             pstmt.executeUpdate();
@@ -56,7 +63,7 @@ public class CarDAO {
     }
     
     public void save(Car car) {
-        String sql = "INSERT INTO cars (model, location_x, location_y, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO cars (model, location_x, location_y, available) VALUES (?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -64,7 +71,7 @@ public class CarDAO {
             pstmt.setString(1, car.getModel());
             pstmt.setInt(2, car.getLocation().getX());
             pstmt.setInt(3, car.getLocation().getY());
-            pstmt.setBoolean(4, car.getStatus());
+            pstmt.setBoolean(4, car.isAvailable());
             
             pstmt.executeUpdate();            
         } 
@@ -90,21 +97,16 @@ public class CarDAO {
     }
 
     public List<Car> getAvailableCars() {
-        String sql = "SELECT * FROM cars WHERE status = TRUE";
+        String sql = "SELECT * FROM cars WHERE available = TRUE";
         List<Car> cars = new ArrayList<>();
         
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	
+        	ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Car car = new Car(
-                    rs.getInt("id"),
-                    rs.getString("model"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getBoolean("status")
-                );
-                cars.add(car);
+                cars.add(carResultSet(rs));
             }
         } 
         catch (SQLException e) {
@@ -120,17 +122,12 @@ public class CarDAO {
         List<Car> cars = new ArrayList<>();
         
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           	
+           	ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Car car = new Car(
-                    rs.getInt("id"),
-                    rs.getString("model"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getBoolean("status")
-                );
-                cars.add(car);
+                cars.add(carResultSet(rs));
             }
         } 
         catch (SQLException e) {
@@ -141,19 +138,19 @@ public class CarDAO {
         return cars;
     }
     
-    public void updateStatus(int carId, Boolean status) {
-        String sql = "UPDATE cars SET status = ? WHERE id = ?";
+    public void changeAvailability(int carId, Boolean available) {
+        String sql = "UPDATE cars SET available = ? WHERE id = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setBoolean(1, status);
+            pstmt.setBoolean(1, available);
             pstmt.setInt(2, carId);
             
             pstmt.executeUpdate();
         } 
         catch (SQLException e) {
-            System.err.println("Error updating car status:");
+            System.err.println("Error updating car availability:");
             e.printStackTrace();
         }
     }

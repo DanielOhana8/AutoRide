@@ -15,6 +15,19 @@ import com.autoride.util.DatabaseConnection;
 
 public class RideDAO {
 	
+	private Ride rideResultSet(ResultSet rs) throws SQLException{
+		return new Ride(
+            rs.getInt("id"),
+            rs.getInt("user_id"),
+            rs.getInt("car_id"),
+            rs.getTimestamp("start_time").toLocalDateTime(),
+            rs.getTimestamp("end_time") != null ? rs.getTimestamp("end_time").toLocalDateTime() : null,
+            new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
+            rs.getObject("end_location_x") != null ? new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")) : null,
+            rs.getDouble("total_cost")
+        );
+	}
+	
 	public Ride getById(int id) {
 		String sql = "SELECT * FROM rides WHERE id = ?";
         
@@ -25,16 +38,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
+                return rideResultSet(rs);
             }         
         } 
         catch (SQLException e) {
@@ -51,8 +55,8 @@ public class RideDAO {
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
         	pstmt.setTimestamp(1, Timestamp.valueOf(ride.getStartTime()));
+        	
         	if (ride.getEndTime() != null) {
         		pstmt.setTimestamp(2, Timestamp.valueOf(ride.getEndTime()));
         	}
@@ -141,17 +145,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Ride ride = new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
-                rides.add(ride);
+                rides.add(rideResultSet(rs));
             }         
         } 
         catch (SQLException e) {
@@ -172,17 +166,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Ride ride = new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
-                rides.add(ride);
+                rides.add(rideResultSet(rs));
             }         
         } 
         catch (SQLException e) {
@@ -204,17 +188,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Ride ride = new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
-                rides.add(ride);
+                rides.add(rideResultSet(rs));
             }         
         } 
         catch (SQLException e) {
@@ -236,17 +210,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Ride ride = new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
-                rides.add(ride);
+                rides.add(rideResultSet(rs));
             }         
         } 
         catch (SQLException e) {
@@ -267,16 +231,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
+                return rideResultSet(rs);
             }         
         } 
         catch (SQLException e) {
@@ -297,16 +252,7 @@ public class RideDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new Ride(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("car_id"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    new Location(rs.getInt("start_location_x"), rs.getInt("start_location_y")),
-                    new Location(rs.getInt("end_location_x"), rs.getInt("end_location_y")),
-                    rs.getDouble("total_cost")
-                );
+                return rideResultSet(rs);
             }         
         } 
         catch (SQLException e) {

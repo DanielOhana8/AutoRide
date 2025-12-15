@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,17 @@ import com.autoride.model.User;
 import com.autoride.util.DatabaseConnection;
 
 public class UserDAO {
+	
+	private User userResultSet(ResultSet rs) throws SQLException{
+		return new User(
+            rs.getInt("id"),
+            rs.getString("name"),
+            rs.getString("email"),
+            rs.getString("password"),
+            new Location(rs.getInt("location_x"), rs.getInt("location_y")),
+            rs.getDouble("balance")
+        );
+	}
 	
 	public User getById(int id) {
 		String sql = "SELECT * FROM users WHERE id = ?";
@@ -24,14 +34,7 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new User(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getDouble("balance")
-                );
+                return userResultSet(rs);
             }         
         } 
         catch (SQLException e) {
@@ -52,14 +55,7 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new User(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getDouble("balance")
-                );
+                return userResultSet(rs);
             }         
         } 
         catch (SQLException e) {
@@ -133,19 +129,12 @@ public class UserDAO {
         List<User> users = new ArrayList<>();
         
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        	PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	
+        	ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-            	User user = new User(
-            		rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    new Location(rs.getInt("location_x"), rs.getInt("location_y")),
-                    rs.getDouble("balance")
-                );
-                users.add(user);
+                users.add(userResultSet(rs));
             }
         } 
         catch (SQLException e) {
