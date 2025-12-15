@@ -96,7 +96,7 @@ public class CarDAO {
         }
     }
 
-    public List<Car> getAvailableCars() {
+    public List<Car> getAllAvailableCars() {
         String sql = "SELECT * FROM cars WHERE available = TRUE";
         List<Car> cars = new ArrayList<>();
         
@@ -110,7 +110,7 @@ public class CarDAO {
             }
         } 
         catch (SQLException e) {
-            System.err.println("Error getting available cars:");
+            System.err.println("Error getting all available cars:");
             e.printStackTrace();
         }
         
@@ -138,7 +138,7 @@ public class CarDAO {
         return cars;
     }
     
-    public void changeAvailability(int carId, Boolean available) {
+    public void setAvailability(int carId, Boolean available) {
         String sql = "UPDATE cars SET available = ? WHERE id = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
@@ -154,5 +154,23 @@ public class CarDAO {
             e.printStackTrace();
         }
     }
+
+	public void setLocation(int carId, Location location) {
+		String sql = "UPDATE cars SET location_x = ?, location_y = ? WHERE id = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+        	pstmt.setInt(1, location.getX());
+            pstmt.setInt(2, location.getY());
+            pstmt.setInt(3, carId);
+            
+            pstmt.executeUpdate();
+        } 
+        catch (SQLException e) {
+            System.err.println("Error updating car location:");
+            e.printStackTrace();
+        }
+	}
     
 }

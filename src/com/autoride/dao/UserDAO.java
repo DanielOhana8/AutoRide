@@ -180,11 +180,6 @@ public class UserDAO {
         }
 	}
 	
-	public boolean authenticate(String email, String password) {
-		User user = getByEmail(email);
-		return user != null && password.equals(user.getPassword());
-	}
-	
 	public boolean emailExists(String email) {
 		User user = getByEmail(email);
 	    return user != null;
