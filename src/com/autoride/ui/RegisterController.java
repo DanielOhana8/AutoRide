@@ -58,7 +58,7 @@ public class RegisterController {
     		return;
     	}
     	
-    	User user = userService.register(new User(0, name, email, password, new Location(0,0), 0.0));
+    	User user = userService.register(new User(0, name, email, password, new Location(0,0), 100.0));
     	
     	if (user != null) {
     		showAlert("Success", "Welcome " + user.getName() + "! please login.");

@@ -134,6 +134,11 @@ public class MainController {
 
     @FXML
     void startRide(ActionEvent event) {
+    	if (user.getBalance() <= 0) {
+    		showAlert("Error", "You don't have enough money.");
+    		return;
+    	}
+    	
     	rideService.startRide(user.getId());
     	
     	if (rideService.getUserActiveRide(user.getId()) == null) {

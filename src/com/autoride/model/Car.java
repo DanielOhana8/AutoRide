@@ -9,11 +9,11 @@ public class Car {
 	
 	public Car() {}
 
-	public Car(int id, String model, Location location, boolean avalible) {
+	public Car(int id, String model, Location location, boolean available) {
 		this.id = id;
 		this.model = model;
 		this.location = location;
-		this.available = avalible;
+		this.available = available;
 	}
 	
 	public int getId() {
