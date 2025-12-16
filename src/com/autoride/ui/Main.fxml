@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.autoride.ui.MainController">
+   <children>
+      <HBox prefHeight="61.0" prefWidth="590.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello " textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="210.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="name">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox prefHeight="43.0" prefWidth="590.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="your balance: " textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="balanceText" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox prefHeight="106.0" prefWidth="590.0">
+         <children>
+            <Button fx:id="startRideButton" mnemonicParsing="false" onAction="#startRide" prefHeight="45.0" prefWidth="166.0" text="start ride" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ride to location:" wrappingWidth="155.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="12.0" />
+               </HBox.margin>
+            </Text>
+            <TextField promptText="x" fx:id="xRideText">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="13.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="yRideText" promptText="y">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="13.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TextField>
+            <Button fx:id="endRideButton" mnemonicParsing="false" onAction="#endRide" prefHeight="45.0" prefWidth="157.0" text="end ride" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+      <Text fx:id="activeRideText" fill="#e40b0b" strokeType="OUTSIDE" strokeWidth="0.0" text="you are not in a ride." wrappingWidth="452.13671875">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Text>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text fill="#5900ff" strokeType="OUTSIDE" strokeWidth="0.0" text="your location: " wrappingWidth="158.13671875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="locationText" strokeType="OUTSIDE" strokeWidth="0.0" text="(0,0)">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox prefHeight="90.0" prefWidth="590.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="change location to:" wrappingWidth="195.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="15.0" left="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField prefHeight="27.0" prefWidth="65.0" promptText="x" fx:id="xChangeText">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="15.0" right="5.0" top="8.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="yChangeText" prefHeight="27.0" prefWidth="66.0" promptText="y">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="5.0" right="5.0" top="8.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#changeLocation" prefHeight="27.0" prefWidth="81.0" text="change">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="5.0" right="5.0" top="8.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="90.0" prefWidth="590.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="add to your balance:" wrappingWidth="193.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="15.0" left="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="balanceAddText" prefHeight="27.0" prefWidth="65.0" promptText="₪">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="15.0" right="5.0" top="8.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#addToBalance" prefHeight="27.0" prefWidth="81.0" text="add">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="5.0" right="5.0" top="8.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="89.0" text="logout">
+         <font>
+            <Font size="22.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="250.0" right="5.0" top="5.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

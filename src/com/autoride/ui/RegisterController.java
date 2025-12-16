@@ -61,7 +61,7 @@ public class RegisterController {
     	User user = userService.register(new User(0, name, email, password, new Location(0,0), 0.0));
     	
     	if (user != null) {
-    		showAlert("Success", "Welcome " + user.getName());
+    		showAlert("Success", "Welcome " + user.getName() + "! please login.");
     		goToLogin(event);
     	}
     	else {
@@ -89,7 +89,7 @@ public class RegisterController {
     @FXML
     void initialize() {
         assert emailField != null : "fx:id=\"emailField\" was not injected: check your FXML file 'Register.fxml'.";
-        assert nameField != null : "fx:id=\"namelField\" was not injected: check your FXML file 'Register.fxml'.";
+        assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'Register.fxml'.";
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'Register.fxml'.";
         assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'Register.fxml'.";
         assert showPasswordBox != null : "fx:id=\"showPasswordBox\" was not injected: check your FXML file 'Register.fxml'.";

@@ -15,7 +15,7 @@ public class RideService {
 	private CarService carService;
 	private UserService userService;
 	
-	private static final double PRICE_PER_UNIT = 5;
+	private static final double PRICE_PER_UNIT = 1.5;
 	
 	public RideService(RideDAO rideDAO, CarService carService, UserService userService) {
 		this.rideDAO = rideDAO;
@@ -25,6 +25,7 @@ public class RideService {
 
 	public Ride startRide(int userId) {
 		User user = userService.getUserById(userId);
+		
 		if (user == null || rideDAO.getActiveRideByUser(userId) != null || user.getBalance() <= 0) {
 			return null;
 		}
@@ -43,6 +44,7 @@ public class RideService {
 	
 	public void endRide(int userId, Location endLocation) {
 		User user = userService.getUserById(userId);
+		
 		if (user == null || rideDAO.getActiveRideByUser(userId) == null) {
 			return;
 		}

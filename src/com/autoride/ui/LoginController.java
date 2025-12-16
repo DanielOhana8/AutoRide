@@ -56,7 +56,8 @@ public class LoginController {
     	User user = userService.login(email, password);
     	
     	if (user != null) {
-    		showAlert("Success", "Welcome " + user.getName());
+    		showAlert("Success", "Welcome " + user.getName() + "!");
+    		goToMain(event, user);
     	}
     	else {
     		showAlert("Error", "Invalid email or password.");
@@ -102,6 +103,26 @@ public class LoginController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    
+    private void goToMain(ActionEvent event, User user) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/autoride/ui/Main.fxml"));
+            Parent mainRoot = loader.load();
+            
+            MainController mainController = loader.getController();
+            mainController.updateUI(user);
+            
+            Scene mainScene = new Scene(mainRoot);
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(mainScene);
+            window.setTitle("AutoRide");
+            window.show();
+        } 
+    	catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Could not load main screen.");
+        }
     }
 
 }
