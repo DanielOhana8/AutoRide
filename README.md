@@ -2,6 +2,8 @@
 
 AutoRide is an autonomous rides ordering system system built with Java, JavaFX, and PostgreSQL.
 
+This is the Desktop version (JavaFX). For the modern Web version (Spring Boot + React), check out: [https://github.com/DanielOhana8/AutoRide---web.git]"
+
 ## Features
 - User registration and login
 - Find nearest available car
